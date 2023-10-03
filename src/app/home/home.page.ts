@@ -47,8 +47,25 @@ export class HomePage implements OnInit{
     },
     error: err=>{console.log(err);}
     })
+  }
 
-
+  public onDeleteClicked(user:User) {
+    var _user:User = {...user};
+    this.users.deleteUser(_user).subscribe(
+      {next: user=> {
+        const options:ToastOptions = {
+          message:`User removed`,
+          duration:1000,
+          position:'bottom',
+          color: 'danger',
+          cssClass:'fav-icon-toast' 
+        };
+      
+        this.toast.create(options).then(toast => toast.present());
+      },
+      error: err=>{console.log(err);}
+      }
+    )
 
   }
 

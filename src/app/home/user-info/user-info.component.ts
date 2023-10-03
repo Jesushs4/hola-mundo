@@ -19,17 +19,28 @@ export class UserInfoComponent  implements OnInit {
   
 
   @Output() onFavClicked:EventEmitter<UserInfoFavClicked> = new EventEmitter<UserInfoFavClicked>();
+  @Output() onDeleteClicked:EventEmitter<void> = new EventEmitter<void>();
 
-  onFavClick(event:any) {
+  
+  
+  
+  constructor() { }
+
+  ngOnInit() {}
+
+
+    onFavClick(event:any) {
     this.onFavClicked.emit({
       fav:!(this.user?.fav??false)
     });
     event.stopPropagation();
     event.preventDefault();
   }
-  
-  constructor() { }
 
-  ngOnInit() {}
+  onDeleteClick(event:any) {
+    this.onDeleteClicked.emit();
+    event.stopPropagation();
+    event.preventDefault();
+  }
 
 }

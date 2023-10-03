@@ -56,4 +56,19 @@ export class UsersService {
   })
   }
 
+  public deleteUser(user:User):Observable<User> {
+    return new Observable(observer=> {
+      var _users = [...this._users.value]
+      var index = _users.findIndex(us=>user.id==us.id);
+      if (index!=-1) {
+        _users= [..._users.slice(0, index),..._users.slice(index+1)];
+        this._users.next(_users);
+        observer.next(user);
+      } else {
+        observer.error(new UserNotFoundException);
+      }
+      observer.complete();
+    })
+  }
+
 }
